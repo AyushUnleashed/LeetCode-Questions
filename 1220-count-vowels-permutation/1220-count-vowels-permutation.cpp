@@ -4,7 +4,7 @@ class Solution {
 public:
     
     // static int size = (2*10000)+1;
-    unsigned long long dp[5][(2*10000)+1];
+    int dp[5][(2*10000)+1];
     
     //a-> 0, e->1,i->2, o->3,u->4
     
@@ -21,23 +21,22 @@ public:
     
     int countVowelPermutation(int n) {
         
-         unsigned long long ansA,ansE,ansI,ansO,ansU,m,finalAns;
+         long ansA,ansE,ansI,ansO,ansU,m;
         ansA = cVowel(n,'a');
          ansE = cVowel(n,'e');
          ansI = cVowel(n,'i');
          ansO = cVowel(n,'o');
          ansU = cVowel(n,'u');
         
-         finalAns = (ansA+ansE+ansI+ansO+ansU)%M;
-        
-        finalAns=(int)finalAns;
+         long finalAns = (ansA+ansE+ansI+ansO+ansU)%M;
+        finalAns= (int)finalAns;
         return finalAns;
         
     }
     
     long cVowel(int n,char ch) //recursive
     {
-        unsigned long long val=-1;
+        int val=-1;
         if(n==1)
         {
             return 1;
