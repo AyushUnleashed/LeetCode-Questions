@@ -11,19 +11,50 @@
  */
 class Solution {
 public:
+    
+    //Inorder Traversal Method
+//     int rangeSumBST(TreeNode* root, int low, int high) {
+//         if(root==NULL) return 0;
+        
+//         int sum=0;
+        
+//         sum+=rangeSumBST(root->left,low,high);
+        
+//         if(root->val >=low && root->val <=high){
+//             sum+=root->val;
+//         }
+        
+//         sum+=rangeSumBST(root->right,low,high);
+        
+//         return sum;
+//     }
+    
+    // 
     int rangeSumBST(TreeNode* root, int low, int high) {
         if(root==NULL) return 0;
-        
         int sum=0;
         
-        sum+=rangeSumBST(root->left,low,high);
-        
-        if(root->val >=low && root->val <=high){
+        if(root->val>=low && root->val<=high){
             sum+=root->val;
         }
         
-        sum+=rangeSumBST(root->right,low,high);
+        if(root->val > high){
+            // range must be on the left side
+            //no need to go to right side
+            sum+=rangeSumBST(root->left,low,high);
+        }
+        else if (root->val <low){
+            // range sum must be on the right side
+            //no need to go the left side
+            sum+=rangeSumBST(root->right,low,high);
+        }
+        else {
+            // range belongs to both left and right side
+            sum+=rangeSumBST(root->left,low,high);
+            sum+=rangeSumBST(root->right,low,high);
+        }
         
         return sum;
     }
+    
 };
