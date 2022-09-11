@@ -33,11 +33,7 @@ public:
     int rangeSumBST(TreeNode* root, int low, int high) {
         if(root==NULL) return 0;
         int sum=0;
-        
-        if(root->val>=low && root->val<=high){
-            sum+=root->val;
-        }
-        
+
         if(root->val > high){
             // range must be on the left side
             //no need to go to right side
@@ -48,9 +44,10 @@ public:
             //no need to go the left side
             sum+=rangeSumBST(root->right,low,high);
         }
-        else {
+        else if(root->val>=low && root->val<=high){
             // range belongs to both left and right side
             sum+=rangeSumBST(root->left,low,high);
+            sum+=root->val;
             sum+=rangeSumBST(root->right,low,high);
         }
         
