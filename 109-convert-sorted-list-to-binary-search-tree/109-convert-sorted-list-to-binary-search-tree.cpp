@@ -33,35 +33,24 @@ public:
             head=head->next;
         }
         
-        return constructTree(sortedList);
+        return inorderToBST(sortedList,0,sortedList.size()-1);
         
         
     }
     
-    TreeNode* constructTree(vector<int> sortedList){
+    TreeNode* inorderToBST(vector<int> sortedList,int start,int end){
         int size = sortedList.size();
-        if(size==0){
+        if(start>end){
           return NULL;  
         } 
         
-        int midIndex = (int)(size/2);
+        int midIndex = (start+end)/2;
         int midValue = sortedList[midIndex];
         
         TreeNode* node = new TreeNode(midValue);
         
-        vector<int> leftList; 
-        
-//         for(i=0;i<midIndex;i++){
-//             leftList.push_back(sortedList[i]);
-//         }
-//         for(i=midIndex)
-        
-        leftList.assign(sortedList.begin(),sortedList.begin()+midIndex);
-        vector<int> rightList; 
-        rightList.assign(sortedList.begin()+midIndex+1,sortedList.end());
-        
-        node->left = constructTree(leftList);
-        node->right = constructTree(rightList);
+        node->left = inorderToBST(sortedList,start,midIndex-1);
+        node->right = inorderToBST(sortedList,midIndex+1,end);
         return node;
     }
     
