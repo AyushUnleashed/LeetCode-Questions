@@ -12,6 +12,7 @@
 class Solution {
 public:
     
+    /* Method1
     vector<int> inorderTraversal(TreeNode* root) {
             vector<int> ans;
         if(root==NULL) return ans;
@@ -62,6 +63,48 @@ public:
         TreeNode* ans = inorderToBST(inorder,0,inorder.size()-1);
         
         return ans;
+    }
+
+*/
+    
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        //find where the node should be
+        //if it comes out to be null
+        //insert it there
+        
+        if(root==NULL){
+            TreeNode* newNode = new TreeNode(val);
+            return newNode;
+        }
+        
+        if(val>root->val){
+            
+            if(root->right==NULL){
+                //nothing there, make a node 
+                TreeNode* newNode = new TreeNode(val);
+                root->right = newNode;
+                
+            }else{
+                //not null
+                TreeNode* newNode = insertIntoBST(root->right,val);
+                root->right = newNode;
+            }
+            return root;
+        }else{
+            //left side
+            
+              if(root->left==NULL){
+                //nothing there, make a node 
+                TreeNode* newNode = new TreeNode(val);
+                root->left = newNode;
+                
+            }else{
+                //not null
+                TreeNode* newNode = insertIntoBST(root->left,val);
+                root->left = newNode;
+            }
+            return root;
+        }
     }
     
    
