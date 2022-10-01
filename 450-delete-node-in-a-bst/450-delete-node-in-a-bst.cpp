@@ -13,18 +13,17 @@
 class Solution {
 public:
     
-    int maximumOfBST(TreeNode* root){
+    int minimumOfBST(TreeNode* root){
         
         if(root==NULL){
-            return INT_MIN;
+            return INT_MAX;
         }
         
-        if(root->right==NULL){
-            return root->val;
-        }else{
-            return maximumOfBST(root->right);
+        while(root->left!=NULL){
+            root=root->left;
         }
         
+        return root->val;
     }
     
     
@@ -62,6 +61,9 @@ public:
         }else if(root->val==key){
             //4
             
+            
+            
+            
             if(root->left==NULL && root->right==NULL){
                 return NULL;
             }else if(root->left==NULL && root->right!=NULL){
@@ -71,9 +73,9 @@ public:
             }else if(root->left!=NULL && root->right!=NULL){
                 
                 //last case
-                int leftMax = maximumOfBST(root->left);
-                root->val = leftMax;
-                root->left = deleteNode(root->left,leftMax);
+                int rightMin = minimumOfBST(root->right);
+                root->val = rightMin;
+                root->right = deleteNode(root->right,rightMin);
                 
                 return root;
                 
