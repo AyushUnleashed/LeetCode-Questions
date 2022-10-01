@@ -67,49 +67,10 @@ public:
 
 */
     
-//     TreeNode* insertIntoBST(TreeNode* root, int val) {
-//         //find where the node should be
-//         //if it comes out to be null
-//         //insert it there
-        
-//         if(root==NULL){
-//             TreeNode* newNode = new TreeNode(val);
-//             return newNode;
-//         }
-        
-//         if(val>root->val){
-            
-//             if(root->right==NULL){
-//                 //nothing there, make a node 
-//                 TreeNode* newNode = new TreeNode(val);
-//                 root->right = newNode;
-                
-//             }else{
-//                 //not null
-//                 TreeNode* newNode = insertIntoBST(root->right,val);
-//                 root->right = newNode;
-//             }
-//             return root;
-//         }else{
-//             //left side
-            
-//               if(root->left==NULL){
-//                 //nothing there, make a node 
-//                 TreeNode* newNode = new TreeNode(val);
-//                 root->left = newNode;
-                
-//             }else{
-//                 //not null
-//                 TreeNode* newNode = insertIntoBST(root->left,val);
-//                 root->left = newNode;
-//             }
-//             return root;
-//         }
-//     }
-    
     
     TreeNode* insertIntoBST(TreeNode* root, int val) {
-     
+        // attach at the appropriate leaf node
+        
         if(root==NULL){
             return new TreeNode(val);
         }
@@ -118,11 +79,11 @@ public:
             //left side
             
             if(root->left==NULL){
-                TreeNode* newNode = new TreeNode(val);
-                root->left = newNode;
+                // TreeNode* newNode = 
+                root->left = new TreeNode(val);
             }else{
-                TreeNode* newNode =insertIntoBST(root->left,val);
-                root->left = newNode;
+                // TreeNode* newNode =insertIntoBST(root->left,val);
+                root->left = insertIntoBST(root->left,val);
             }
     
         }else{
@@ -130,12 +91,12 @@ public:
             
                         
             if(root->right==NULL){
-                TreeNode* newNode = new TreeNode(val);
-                root->right = newNode;
+                // TreeNode* newNode = new TreeNode(val);
+                root->right = new TreeNode(val);
             }else{
                 
-                TreeNode* newNode =insertIntoBST(root->right,val);
-                root->right = newNode;
+                // TreeNode* newNode =insertIntoBST(root->right,val);
+                root->right = insertIntoBST(root->right,val);
             }
         }
         
