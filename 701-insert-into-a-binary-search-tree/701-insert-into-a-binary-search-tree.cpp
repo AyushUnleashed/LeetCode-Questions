@@ -78,26 +78,20 @@ public:
         if(val< root->val){
             //left side
             
-            if(root->left==NULL){
-                // TreeNode* newNode = 
+            if(root->left==NULL)
                 root->left = new TreeNode(val);
-            }else{
-                // TreeNode* newNode =insertIntoBST(root->left,val);
-                root->left = insertIntoBST(root->left,val);
-            }
+            else   root->left = insertIntoBST(root->left,val);
+    
     
         }else{
             //right side
             
                         
-            if(root->right==NULL){
-                // TreeNode* newNode = new TreeNode(val);
+            if(root->right==NULL)
                 root->right = new TreeNode(val);
-            }else{
-                
-                // TreeNode* newNode =insertIntoBST(root->right,val);
+            else
                 root->right = insertIntoBST(root->right,val);
-            }
+            
         }
         
         return root;
