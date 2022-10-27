@@ -12,51 +12,54 @@
 class Solution {
 public:
     
-    bool isNodePresent(int key,TreeNode* root){
-        if(root==NULL) return false;
+    vector<int> convertToInorder(TreeNode* root){
         
-        if(key==root->val){
-            return true;
+        vector<int> finalAns;
+        if(root==NULL){
+            return finalAns;
         }
         
-        return ( isNodePresent(key,root->left) || isNodePresent(key,root->right) );
+       
+        vector<int> leftAns= convertToInorder(root->left);
+        
+        for(int i=0;i<leftAns.size();i++){
+            finalAns.push_back(leftAns[i]);
+        }
+        
+        finalAns.push_back(root->val);
+        
+        vector<int> rightAns = convertToInorder(root->right);
+        
+        for(int i=0;i<rightAns.size();i++){
+            finalAns.push_back(rightAns[i]);
+        }
+        
+        return finalAns;
+        
     }
+        
     
-    
-    bool helper(TreeNode* currRoot,int k, TreeNode* root){
+    bool findTarget(TreeNode* root, int k) {
+        vector<int> inorder = convertToInorder(root);
         
-        if(currRoot==NULL || root==NULL){
-            return false;
-        }
+        //Two Sum; first + second =k  // key, value -> val,index
         
-        int first = currRoot->val;
-        int second = k -first;
+        unordered_map<int,int> map;
         
-        bool isSecondPresent;
-        if(first!=second){
-           isSecondPresent = isNodePresent(second,root);
-        }else{
-             isSecondPresent = false;
-        }
-        
-        
-        if(isSecondPresent==true){
-            return true;
-        }else{
+        for(int i=0;i<inorder.size();i++){
             
-            bool leftAns = helper(currRoot->left,k,root);
-            bool rightAns = helper(currRoot->right,k,root);
+            int first = inorder[i];
+            int second = k - first;
             
-            if(leftAns==true || rightAns==true ){
+            if(map.find(second)!=map.end()){
+                //we found the second element
                 return true;
             }
+            
+            map[first]=i;
         }
         
         return false;
     }
     
-    bool findTarget(TreeNode* root, int k) {
-        bool ans =helper(root,k,root);
-        return ans;
-    }
 };
