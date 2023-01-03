@@ -1,20 +1,15 @@
 class Solution {
 public:
     int minDeletionSize(vector<string>& strs) {
-        int len = strs[0].length();
-        int n = strs.size();
         
         int cnt=0;
-        
-        for(int j=0;j<len;j++){
+        for(int j=0;j<strs[0].length();j++){
             
-            bool isStrLexographic=true;
-            int lastChar=96;
+            int lastChar=96; // 'a'-1
             
-            for(int i=0;i<n;i++){     
+            for(int i=0;i<strs.size();i++){     
                 //column
                 if(int(strs[i][j])<lastChar){
-                    isStrLexographic=false;
                     cnt++;
                     break;
                 }
