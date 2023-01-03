@@ -28,36 +28,47 @@ public:
         return ans;
     }
     
-    TreeNode* modifyTraversal(TreeNode* root, unordered_map<int,int> hashMap){
+    // TreeNode* modifyTraversal(TreeNode* root, unordered_map<int,int> hashMap){
+    //     //inorder traversal
+    //     //left
+    //     if(root==NULL) {
+    //         return NULL;
+    //     }
+    //     TreeNode* leftSubTree = modifyTraversal(root->left,hashMap);
+    //     TreeNode* newRoot = new TreeNode(hashMap[root->val]);
+    //     TreeNode* rightSubTree = modifyTraversal(root->right,hashMap);        
+    //     newRoot->left = leftSubTree;
+    //     newRoot->right = rightSubTree;
+    //     return newRoot;
+    // }
+    
+    void modifyTraversal(TreeNode*& root, unordered_map<int,int>& hashMap){                       
         //inorder traversal
         //left
         if(root==NULL) {
-            return NULL;
+            return;
         }
-        TreeNode* leftSubTree = modifyTraversal(root->left,hashMap);
-        TreeNode* newRoot = new TreeNode(hashMap[root->val]);
-        TreeNode* rightSubTree = modifyTraversal(root->right,hashMap);        
-        newRoot->left = leftSubTree;
-        newRoot->right = rightSubTree;
-        return newRoot;
+        modifyTraversal(root->left,hashMap);
+        root->val = hashMap[root->val];
+        modifyTraversal(root->right,hashMap);        
     }
-        TreeNode* bstToGst(TreeNode* root) {
+    
+    TreeNode* bstToGst(TreeNode* root) {
         
         vector<int> inorder = createInorder(root);   
         // modify inorder
-        vector<int> modifiedInorder = inorder;
         
-        int len= modifiedInorder.size();
+        int len= inorder.size();
         int runningSum=0;
         unordered_map<int,int> hashMap;
         
         for(int i=len-1;i>=0;i--){
             runningSum+=inorder[i];
-            modifiedInorder[i]=runningSum;
-            hashMap[inorder[i]]=modifiedInorder[i];
+            hashMap[inorder[i]]=runningSum;
         }
         
-       return modifyTraversal(root,hashMap);
+        modifyTraversal(root,hashMap);
+        return root;
     }
     
 };
