@@ -10,14 +10,7 @@ public:
         unordered_map<int,int> freq;
         
         for(int i=0;i<nums.size();i++){
-            
-            if(freq.find(nums[i]) != freq.end()){
-                //exist in map
-                freq[nums[i]]++;
-            }else{
-                //doesnt exist
-                freq[nums[i]]=1;
-            }
+            freq[nums[i]]++;       
         }
         
         for(int i=0;i<nums.size();i++){
