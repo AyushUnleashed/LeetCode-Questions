@@ -13,22 +13,12 @@ public:
             freq[nums[i]]++;       
         }
         
-        for(int i=0;i<nums.size();i++){
-            
-            if(freq.find(nums[i]) != freq.end()){
-                //exist in map
-                
-                if(freq[nums[i]]==-1) continue;
-                
-                pq.push({freq[nums[i]],nums[i]});
-                if(pq.size()>k){
-                    pq.pop();
-                } 
-                freq[nums[i]]=-1;
-            }
+        for(auto i=freq.begin();i!=freq.end();i++){       
+            pq.push({i->second,i->first});
+            if(pq.size()>k){
+                pq.pop();
+            } 
         }
-        
-
         
         vector<int> ans;
         while(!pq.empty()){
