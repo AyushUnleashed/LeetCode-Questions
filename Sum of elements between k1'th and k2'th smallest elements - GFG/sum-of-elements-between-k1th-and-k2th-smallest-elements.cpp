@@ -5,32 +5,39 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    long long sumBetweenTwoKth( long long A[], long long N, long long K1, long long K2)
-    {
+    
+    
+    long long kthSmallestElement(long long A[],long long N,long long K){
         priority_queue<long long> pq; //max heap
-        
-        long long largest;
-        if(K1>K2){
-            largest=K1;
-        }else{
-            largest=K2;
-        }
-        
         for(long long i=0;i<N;i++){
             pq.push(A[i]);
-            if(pq.size()>(largest-1)){
+            if(pq.size()>K){
                 pq.pop();
             }
         }
-        // we get  heap of size (largest-1)
+        return pq.top();
+    }
+    long long sumBetweenTwoKth( long long A[], long long N, long long K1, long long K2)
+    {
+       
+        long long k1th=kthSmallestElement(A,N,K1);
+        long long k2th=kthSmallestElement(A,N,K2);
         
-        long long t=abs(K1-K2)-1; //6th - 3rd  = 3, but 3-1 = 2 elements between them, 4th&t5h 
-    
+        long long largest,smallest;
+        if(k1th>k2th){
+            largest=k1th;
+            smallest=k2th;
+        }else{
+            largest=k2th;
+            smallest=k1th;
+        }
+        
+            
         long long sum=0;
-        while(!pq.empty() && t>0){
-            sum+=pq.top();
-            pq.pop();
-            t--;
+        for(long long i=0;i<N;i++){
+            if(A[i]>smallest && A[i]<largest){
+                sum+=A[i];
+            }
         }
         
         return sum;
