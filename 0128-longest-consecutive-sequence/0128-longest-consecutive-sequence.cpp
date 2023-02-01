@@ -2,11 +2,11 @@ class Solution {
 public:
     
      int longestConsecutive(vector<int>& nums) {
-        unordered_set<int> hashset;
+        unordered_map<int,bool> hashset;
         int maxLen=0;
          
          for(int i=0;i<nums.size();i++){
-             hashset.insert(nums[i]);
+             hashset[nums[i]]=false;
          }
          //all of them are starting of sequence
          
@@ -14,6 +14,9 @@ public:
              
              // if smaller element doesn't exit
              if(hashset.find(nums[i]-1)==hashset.end()){
+                 
+                 if(hashset[nums[i]]==true) continue;
+                 
                  // no smaller element exist, it's smallest in map
                  //start counting upwards
                  
@@ -22,6 +25,7 @@ public:
                      //if next element exist
                      len++; 
                  }
+                 hashset[nums[i]]=true;
                  maxLen=max(len,maxLen);
              }
          }
