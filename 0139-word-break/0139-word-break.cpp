@@ -4,30 +4,30 @@ class Solution {
     unordered_map<int,bool> dp;
 public:
     
-    bool wordBreakHelper(string str,int startIdx,unordered_set<string>& set){ 
+    bool wordBreakHelper(string str,int pos,unordered_set<string>& set){ 
         
-        if(str=="" || startIdx==str.size()){
+        if(pos==str.size()){
             return true;
         }
         
-        if(dp.find(startIdx)!=dp.end()){
-            return dp[startIdx];
+        if(dp.find(pos)!=dp.end()){
+            return dp[pos];
         }
         
         string curr="";
-        for(int i=startIdx;i<str.length();i++){
+        for(int i=pos;i<str.length();i++){
             curr+=str[i];
             if(set.find(curr)!=set.end()){
                 //exist in map
                 
                 bool smallAns = wordBreakHelper(str,i+1,set);
                 if(smallAns==true){
-                    dp[startIdx]=true;
+                    dp[pos]=true;
                     return true;
                 }
             }
         }
-        dp[startIdx]=false;
+        dp[pos]=false;
         return false;
         
     }
