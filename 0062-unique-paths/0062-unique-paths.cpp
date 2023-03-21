@@ -22,7 +22,10 @@ public:
     int uniquePaths(int m, int n) {
         int x =0,y=0;
 
-        dp.resize(n,vector<int> (m,0));
+        for(int i=0;i<n;i++){
+            vector<int> curr(m,0);
+            dp.push_back(curr);
+        }
         return uniquePathsHelper(x,y,m,n);
     }
 };
